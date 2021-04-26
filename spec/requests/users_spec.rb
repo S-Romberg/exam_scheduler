@@ -6,6 +6,7 @@ RSpec.describe "/users/schedule_test", type: :request do
     context "with valid parameters" do
       FactoryBot.create(:user)
       it "Schedules user for test if user exists" do
+        binding.pry
       end
     end
   end
@@ -31,6 +32,11 @@ RSpec.describe "/users", type: :request do
       FactoryBot.create(:user)
       get users_url,  as: :json
       expect(response).to be_successful
+    end
+    it "creates api_request loggin request" do
+      get users_url,  as: :json
+      api_request_record = ApiRequest.last
+      expect(api_request_record.action_type).to eq('Request')
     end
   end
 
