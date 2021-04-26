@@ -5,16 +5,50 @@ require 'rails_helper'
 RSpec.describe '/users/schedule_test', type: :request do
   describe 'POST ' do
     context 'with valid parameters' do
-      it 'Schedules user for test if user exists' do
+      before(:each) do
+        FactoryBot.create(:exam_window)
+      end
+      it 'Schedules user for test if params are valid' do
+        college = FactoryBot.create(:college)
+        window = FactoryBot.create(:exam_window)
+        exam = window.exam
+        post '/users/schedule_test',
+             params: {
+               first_name: 'Spencer',
+               last_name: 'Romberg',
+               phone_number: '7205551324',
+               college_id: college.id,
+               exam_id: exam.id,
+               start_time: window.start_time
+             }, as: :json
+        expect(response.status).to be(200)
+      end
+
+      it 'Throws exception if start time is invalid' do
         post '/users/schedule_test',
              params: {
                first_name: 'Spencer',
                last_name: 'Romberg',
                phone_number: '7205551324',
                college_id: FactoryBot.create(:college).id,
-               exam_id: FactoryBot.create(:exam).id,
+               exam_id: FactoryBot.create(:exam).id
+             }, as: :json
+        expect(response.status).to be(400)
+        expect(response.body).to eq('Invalid start time')
+      end
+
+      it 'Throws exception if exam does not exist' do
+        post '/users/schedule_test',
+             params: {
+               first_name: 'Spencer',
+               last_name: 'Romberg',
+               phone_number: '7205551324',
+               college_id: FactoryBot.create(:college).id,
+               exam_id: Exam.all.count + 1,
                start_time: FactoryBot.create(:exam_window).start_time
              }, as: :json
+        expect(response.status).to be(400)
+        expect(response.body).to include("Couldn't find Exam")
       end
     end
   end

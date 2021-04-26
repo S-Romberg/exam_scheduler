@@ -6,6 +6,8 @@ class User < ApplicationRecord
   validates :first_name, :last_name, presence: true
   validates :phone_number, uniqueness: true, length: { minimum: 10, maximum: 11 }
 
+  has_and_belongs_to_many :exams, through: :exams_users
+
   private
 
   def sanitize_fields

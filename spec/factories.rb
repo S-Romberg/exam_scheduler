@@ -21,7 +21,7 @@ FactoryBot.define do
     association :exam
     start_time { DateTime.current.beginning_of_hour }
     end_time { DateTime.current.end_of_hour }
-    initialize_with { ExamWindow.find_or_create_by(start_time: start_time) }
+    initialize_with { ExamWindow.find_or_create_by(exam_id: exam.id) }
   end
 
   factory :api_request do
