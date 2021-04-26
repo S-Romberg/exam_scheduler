@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   before_validation :sanitize_fields
 
@@ -7,8 +9,8 @@ class User < ApplicationRecord
   private
 
   def sanitize_fields
-    self.phone_number = self.phone_number&.tr('^0-9', '')
-    self.first_name = self.first_name&.downcase
-    self.last_name = self.last_name&.downcase
+    self.phone_number = phone_number&.tr('^0-9', '')
+    self.first_name = first_name&.downcase
+    self.last_name = last_name&.downcase
   end
 end

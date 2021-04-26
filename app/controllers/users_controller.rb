@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: %i[show update destroy]
 
   # main method - POST /users/schedule_test
   def schedule_test
-    user = User.find_or_create_by(phone_number: user_params[:phone_number], first_name: user_params[:first_name], last_name: user_params[:last_name])
-    college = College.find_by(user_params[:college_id])
-    exam = Exam.find_by(user_params[:exam_id])
-    binding.pry
+    user = grab_user
+    check_exam_params
 
+    binding.pry
   end
 
   # GET /users
@@ -22,24 +23,19 @@ class UsersController < ApplicationController
     render json: @user
   end
 
-
   # POST /users
   def create
     @user = User.new(user_params)
 
-    if @user.save!
-      render json: @user, status: :created, location: @user
-    end
-  rescue
+    render json: @user, status: :created, location: @user if @user.save!
+  rescue StandardError
     render json: @user.errors, status: :unprocessable_entity
   end
 
   # PATCH/PUT /users/1
   def update
-    if @user.update!(user_params)
-      render json: @user
-    end
-  rescue
+    render json: @user if @user.update!(user_params)
+  rescue StandardError
     render json: @user.errors, status: :unprocessable_entity
   end
 
@@ -49,14 +45,37 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:college_id, :phone_number, :first_name, :last_name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.permit(:user, :college_id, :phone_number, :first_name, :last_name, :start_time, :exam_id)
+  end
+
+  def grab_user
+    User.find_or_create_by(phone_number: user_params[:phone_number], first_name: user_params[:first_name],
+                           last_name: user_params[:last_name])
+  end
+
+  def check_exam_params
+    college = College.find(user_params[:college_id])
+    exam = Exam.find(user_params[:exam_id])
+    exam_belongs_to_college(college, exam)
+    start_time_in_exam_windows?(exam)
+  end
+
+  def start_time_in_exam_windows?(exam)
+    exam.exam_windows.select do |window|
+      binding.pry
+      user_params[:start_time].between?(window.start_time, window.end_time)
+    end
+  end
+
+  def exam_belongs_to_college(college, exam)
+    throw 'This college does not have access to this exam' unless college.exams.find(exam.id)
+  end
 end

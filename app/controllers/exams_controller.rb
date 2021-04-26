@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ExamsController < ApplicationController
-  before_action :set_exam, only: [:show, :update, :destroy]
+  before_action :set_exam, only: %i[show update destroy]
 
   # GET /exams
   def index
@@ -39,13 +41,14 @@ class ExamsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_exam
-      @exam = Exam.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def exam_params
-      params.fetch(:exam, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_exam
+    @exam = Exam.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def exam_params
+    params.fetch(:exam, {})
+  end
 end

@@ -1,13 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before(:each) do
-    if User.all.empty?
-      FactoryBot.create(:user)
-    end
+    FactoryBot.create(:user) if User.all.empty?
   end
 
-  it "exists with valid attributes" do
+  it 'exists with valid attributes' do
     user = User.last
     expect(user.first_name).to eq('spencer')
     expect(user.last_name).to eq('romberg')

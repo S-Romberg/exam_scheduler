@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ApiRequestsController < ApplicationController
-  before_action :set_api_request, only: [:show, :update, :destroy]
+  before_action :set_api_request, only: %i[show update destroy]
 
   # GET /api_requests
   def index
@@ -39,13 +41,14 @@ class ApiRequestsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_api_request
-      @api_request = ApiRequest.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def api_request_params
-      params.fetch(:api_request, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_api_request
+    @api_request = ApiRequest.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def api_request_params
+    params.fetch(:api_request, {})
+  end
 end

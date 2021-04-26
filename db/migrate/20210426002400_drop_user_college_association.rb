@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DropUserCollegeAssociation < ActiveRecord::Migration[6.1]
   def change
     remove_column :users, :college_id

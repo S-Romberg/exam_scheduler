@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,49 +12,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_26_002400) do
-
+ActiveRecord::Schema.define(version: 20_210_426_002_400) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "api_requests", force: :cascade do |t|
-    t.string "action_type"
-    t.string "description"
-    t.bigint "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_api_requests_on_user_id"
+  create_table 'api_requests', force: :cascade do |t|
+    t.string 'action_type'
+    t.string 'description'
+    t.bigint 'user_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['user_id'], name: 'index_api_requests_on_user_id'
   end
 
-  create_table "colleges", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'colleges', force: :cascade do |t|
+    t.string 'name'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "exam_windows", force: :cascade do |t|
-    t.bigint "exam_id"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["exam_id"], name: "index_exam_windows_on_exam_id"
+  create_table 'exam_windows', force: :cascade do |t|
+    t.bigint 'exam_id'
+    t.datetime 'start_time'
+    t.datetime 'end_time'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['exam_id'], name: 'index_exam_windows_on_exam_id'
   end
 
-  create_table "exams", force: :cascade do |t|
-    t.string "name"
-    t.bigint "college_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["college_id"], name: "index_exams_on_college_id"
+  create_table 'exams', force: :cascade do |t|
+    t.string 'name'
+    t.bigint 'college_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['college_id'], name: 'index_exams_on_college_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "phone_number"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'users', force: :cascade do |t|
+    t.string 'first_name'
+    t.string 'last_name'
+    t.string 'phone_number'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
-
 end

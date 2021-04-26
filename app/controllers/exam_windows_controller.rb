@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ExamWindowsController < ApplicationController
-  before_action :set_exam_window, only: [:show, :update, :destroy]
+  before_action :set_exam_window, only: %i[show update destroy]
 
   # GET /exam_windows
   def index
@@ -39,13 +41,14 @@ class ExamWindowsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_exam_window
-      @exam_window = ExamWindow.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def exam_window_params
-      params.fetch(:exam_window, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_exam_window
+    @exam_window = ExamWindow.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def exam_window_params
+    params.fetch(:exam_window, {})
+  end
 end
