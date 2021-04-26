@@ -23,11 +23,17 @@ start_time: DateTime
 
 #### A client can send the above request and expect the following behavior 
 * A successful (200 OK) response if: 
+* 
 [x] the request data is valid and sanitized 
+
 [x] a college exists in the database (college_id) 
+
 [x] an exam exists and belongs to the college (exam_id) 
+
 [x] a user is successfully found or created, and assigned to the exam 
+
 [x] the start_time of the request falls within an Exam's time window 
+
 * A bad request (400) response with appropriate error message if: 
 [x] the request data is invalid or not clean 
 [x] a college with the given college_id is not found 
