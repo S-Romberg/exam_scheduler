@@ -21,7 +21,7 @@ start_time: DateTime
 }
 ```
 
-#### Main Method: [Users Controller](app/controllers/user_controller.rb)
+#### Main Method: [Users Controller](app/controllers/users_controller.rb)
 ```
  POST /users/schedule_test
 ```
