@@ -5,15 +5,14 @@ RSpec.describe "/users/schedule_test", type: :request do
   describe "POST " do
     context "with valid parameters" do
       it "Schedules user for test if user exists" do
-        post users_url,
+        post '/users/schedule_test',
           params: {
-            first_name: 'Spencer', 
-            last_name: 'Romberg', 
-            phone_number: '7205551324', 
-            college_id: Integer, 
-            exam_id: Integer, 
-            start_time: DateTime 
-
+            first_name: 'Spencer',
+            last_name: 'Romberg',
+            phone_number: '7205551324',
+            college_id: FactoryBot.create(:college).id,
+            exam_id: FactoryBot.create(:exam).id,
+            start_time: FactoryBot.create(:exam_window).start_time,
           }, as: :json
       end
     end
