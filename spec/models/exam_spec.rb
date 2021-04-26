@@ -7,9 +7,7 @@ RSpec.describe Exam, type: :model do
   end
 
   it "exists with valid attributes" do
-    user = User.last
-    expect(user.first_name).to eq('Spencer')
-    expect(user.last_name).to eq('Romberg')
-    expect(user.phone_number).to eq('7205551324')
+    exam = Exam.last
+    expect(exam.college_id).to eq(College.last.id)
   end
 end

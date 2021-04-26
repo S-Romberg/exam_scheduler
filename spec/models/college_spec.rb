@@ -7,8 +7,6 @@ RSpec.describe College, type: :model do
 
   it "exists with valid attributes" do
     college = College.last
-    expect(userfirst_name).to eq('Spencer')
-    expect(user.last_name).to eq('Romberg')
-    expect(user.phone_number).to eq('7205551324')
+    expect(college.name).to eq('WGU')
   end
 end

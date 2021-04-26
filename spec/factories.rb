@@ -21,7 +21,7 @@ FactoryBot.define do
 
   factory :api_request do
     association :user
-    action { 'error' }
+    action_type { 'error' }
     description { 'Exam window does not exist' }
   end
 

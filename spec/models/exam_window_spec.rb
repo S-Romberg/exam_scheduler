@@ -11,6 +11,6 @@ RSpec.describe ExamWindow, type: :model do
     window = ExamWindow.last
     expect(window.exam_id).to eq(Exam.last.id)
     expect(window.start_time).to eq(DateTime.current.beginning_of_hour())
-    expect(window.end_time).to eq(DateTime.current.end_of_hour())
+    expect(window.end_time.to_i).to eq(DateTime.current.end_of_hour().to_i)
   end
 end

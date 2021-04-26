@@ -8,8 +8,6 @@ RSpec.describe ApiRequest, type: :model do
 
   it "exists with valid attributes" do
     api_request = ApiRequest.last
-    expect(user.first_name).to eq('Spencer')
-    expect(user.last_name).to eq('Romberg')
-    expect(user.phone_number).to eq('7205551324')
+    expect(api_request.action_type).to eq('error')
   end
 end
