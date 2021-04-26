@@ -4,9 +4,10 @@ class UsersController < ApplicationController
   # main method - POST /users/schedule_test
   def schedule_test
     @user = grab_user
-    binding.pry
     @exam = valid_exam_schedule_request?
     create_exam_user_join
+
+    render json: "Exam scheduled for #{user_params[:start_time].to_s}", status: :ok
 
   rescue StandardError => e
     render json: e.message, status: 400
@@ -85,6 +86,6 @@ class UsersController < ApplicationController
   end
 
   def create_exam_user_join
-    ExamUser.create(user: @user, exam: @exam, start_time: user_params[:start_time])
+    ExamUser.create!(user_id: @user.id, exam_id: @exam.id, start_time: user_params[:start_time])
   end
 end

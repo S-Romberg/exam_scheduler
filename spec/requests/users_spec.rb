@@ -22,8 +22,11 @@ RSpec.describe '/users/schedule_test', type: :request do
                start_time: window.start_time
              }, as: :json
         expect(response.status).to be(200)
+        expect(response.body).to include("Exam scheduled")
       end
+    end
 
+    context 'with invalid parameters' do
       it 'Throws exception if start time is invalid' do
         post '/users/schedule_test',
              params: {
@@ -158,15 +161,6 @@ RSpec.describe '/users', type: :request do
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
-    end
-  end
-
-  describe 'DELETE /destroy' do
-    it 'destroys the requested user' do
-      user = FactoryBot.create(:user)
-      expect do
-        delete user_url(user), as: :json
-      end.to change(User, :count).by(-1)
     end
   end
 end

@@ -31,13 +31,13 @@ ActiveRecord::Schema.define(version: 2021_04_26_024155) do
   end
 
   create_table "exam_users", force: :cascade do |t|
-    t.bigint "users_id"
-    t.bigint "exams_id"
+    t.bigint "user_id"
+    t.bigint "exam_id"
     t.datetime "start_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["exams_id"], name: "index_exam_users_on_exams_id"
-    t.index ["users_id"], name: "index_exam_users_on_users_id"
+    t.index ["exam_id"], name: "index_exam_users_on_exam_id"
+    t.index ["user_id"], name: "index_exam_users_on_user_id"
   end
 
   create_table "exam_windows", force: :cascade do |t|
@@ -65,6 +65,6 @@ ActiveRecord::Schema.define(version: 2021_04_26_024155) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "exam_users", "exams", column: "exams_id"
-  add_foreign_key "exam_users", "users", column: "users_id"
+  add_foreign_key "exam_users", "exams"
+  add_foreign_key "exam_users", "users"
 end
