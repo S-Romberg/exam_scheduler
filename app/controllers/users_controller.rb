@@ -85,6 +85,6 @@ class UsersController < ApplicationController
   end
 
   def create_exam_user_join
-    UserExam.create(user: @user, exam: @exam, start_time: user_params[:start_time])
+    ExamUser.create(user: @user, exam: @exam, start_time: user_params[:start_time])
   end
 end

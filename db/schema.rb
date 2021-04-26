@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 2021_04_26_024155) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "exam_users", force: :cascade do |t|
+    t.bigint "users_id"
+    t.bigint "exams_id"
+    t.datetime "start_time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["exams_id"], name: "index_exam_users_on_exams_id"
+    t.index ["users_id"], name: "index_exam_users_on_users_id"
+  end
+
   create_table "exam_windows", force: :cascade do |t|
     t.bigint "exam_id"
     t.datetime "start_time"
@@ -47,16 +57,6 @@ ActiveRecord::Schema.define(version: 2021_04_26_024155) do
     t.index ["college_id"], name: "index_exams_on_college_id"
   end
 
-  create_table "exams_users", force: :cascade do |t|
-    t.bigint "users_id"
-    t.bigint "exams_id"
-    t.datetime "start_time"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["exams_id"], name: "index_exams_users_on_exams_id"
-    t.index ["users_id"], name: "index_exams_users_on_users_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -65,6 +65,6 @@ ActiveRecord::Schema.define(version: 2021_04_26_024155) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "exams_users", "exams", column: "exams_id"
-  add_foreign_key "exams_users", "users", column: "users_id"
+  add_foreign_key "exam_users", "exams", column: "exams_id"
+  add_foreign_key "exam_users", "users", column: "users_id"
 end
