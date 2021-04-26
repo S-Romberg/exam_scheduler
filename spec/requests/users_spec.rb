@@ -60,13 +60,13 @@ RSpec.describe "/users", type: :request do
       it "creates a new User" do
         expect {
           post users_url,
-               params: { user: valid_attributes }, as: :json
+               params: valid_attributes, as: :json
         }.to change(User, :count).by(1)
       end
 
       it "renders a JSON response with the new user" do
         post users_url,
-             params: { user: valid_attributes }, as: :json
+             params: valid_attributes, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including("application/json"))
       end
@@ -76,13 +76,13 @@ RSpec.describe "/users", type: :request do
       it "does not create a new User" do
         expect {
           post users_url,
-               params: { user: invalid_attributes }, as: :json
+               params: invalid_attributes, as: :json
         }.to change(User, :count).by(0)
       end
 
       it "renders a JSON response with errors for the new user" do
         post users_url,
-             params: { user: invalid_attributes }, as: :json
+             params: invalid_attributes, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including("application/json"))
       end
@@ -120,7 +120,7 @@ RSpec.describe "/users", type: :request do
       it "renders a JSON response with errors for the user" do
         user = FactoryBot.create(:user)
         patch user_url(user),
-              params: { user: invalid_attributes }, as: :json
+              params: invalid_attributes, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including("application/json"))
       end
