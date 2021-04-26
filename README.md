@@ -22,7 +22,8 @@ start_time: DateTime
 ### Acceptance Criteria: 
 
 #### A client can send the above request and expect the following behavior 
-* A successful (200 OK) response if: 
+
+A successful (200 OK) response if: 
 
 - [x] the request data is valid and sanitized 
 
@@ -34,7 +35,7 @@ start_time: DateTime
 
 - [x] the start_time of the request falls within an Exam's time window 
 
-* A bad request (400) response with appropriate error message if: 
+A bad request (400) response with appropriate error message if: 
 
 - [x] the request data is invalid or not clean 
 
@@ -45,3 +46,5 @@ start_time: DateTime
 - [x] a user fails to be found or created, or failed to get associated with the exam 
 
 - [x] a requested start_time does not fall with in an exam's time window 
+
+Appropriate tests linked [here](spec/requests/users_spec.rb)
