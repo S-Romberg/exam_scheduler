@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before(:each) do
-   FactoryBot.create(:user)
+    if User.all.empty?
+      FactoryBot.create(:user)
+    end
   end
 
   it "exists with valid attributes" do

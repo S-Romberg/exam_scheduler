@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe ApiRequest, type: :model do
   before(:each) do
-   FactoryBot.create(:user)
    FactoryBot.create(:api_request)
   end
 
