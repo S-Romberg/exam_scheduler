@@ -48,7 +48,7 @@ start_time: DateTime
 > - [x] a user fails to be found or created, or failed to get associated with the exam 
 > 
 > - [x] a requested start_time does not fall with in an exam's time window 
-> - [x] Bonus - ApiRequests are logged
+> - [x] Bonus - [ApiRequests are logged](app/controllers/application_controller.rb)
 > 
 > 
 > Appropriate tests linked [here](spec/requests/users_spec.rb)
