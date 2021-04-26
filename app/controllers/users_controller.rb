@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy]
 
@@ -60,7 +62,7 @@ class UsersController < ApplicationController
 
   def grab_user
     User.find_or_create_by!(phone_number: user_params[:phone_number], first_name: user_params[:first_name],
-                           last_name: user_params[:last_name])
+                            last_name: user_params[:last_name])
   end
 
   def valid_exam_schedule_request?
