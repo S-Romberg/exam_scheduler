@@ -6,7 +6,6 @@ RSpec.describe "/users/schedule_test", type: :request do
     context "with valid parameters" do
       FactoryBot.create(:user)
       it "Schedules user for test if user exists" do
-        binding.pry
       end
     end
   end
