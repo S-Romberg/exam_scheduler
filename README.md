@@ -21,6 +21,11 @@ start_time: DateTime
 }
 ```
 
+#### Main Method: [Users Controller](app/controllers/user_controller.rb)
+```
+ POST /users/schedule_test
+```
+
 ### Acceptance Criteria: 
 
 #### A client can send the above request and expect the following behavior 
