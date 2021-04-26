@@ -3,8 +3,9 @@ class UsersController < ApplicationController
 
   # main method - POST /users/schedule_test
   def schedule_test
-    sanitized_phone = user_params[:phone_number].tr('^0-9', '')
-    user = User.find_or_create_by(phone_number: sanitized_phone)
+    user = User.find_or_create_by(phone_number: user_params[:phone_number], first_name: user_params[:first_name], last_name: user_params[:last_name])
+    college = College.find_by(user_params[:college_id])
+    exam = Exam.find_by(user_params[:exam_id])
     binding.pry
 
   end
@@ -55,6 +56,7 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:phone_number, :first_name, :last_name)
+      params.require(:user).permit(:college_id, :phone_number, :first_name, :last_name)
     end
+
 end
