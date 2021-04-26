@@ -41,20 +41,20 @@ ActiveRecord::Schema.define(version: 2021_04_25_233011) do
 
   create_table "exams", force: :cascade do |t|
     t.string "name"
-    t.bigint "colleges_id"
+    t.bigint "college_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["colleges_id"], name: "index_exams_on_colleges_id"
+    t.index ["college_id"], name: "index_exams_on_college_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.bigint "colleges_id"
+    t.bigint "college_id"
     t.string "first_name"
     t.string "last_name"
     t.string "phone_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["colleges_id"], name: "index_users_on_colleges_id"
+    t.index ["college_id"], name: "index_users_on_college_id"
   end
 
 end
