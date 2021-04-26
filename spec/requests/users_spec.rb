@@ -43,11 +43,23 @@ RSpec.describe '/users/schedule_test', type: :request do
       expect(response.body).to include("Couldn't find Exam")
     end
 
-    it 'Throws exception if exam does not belong' do
+    it 'Throws exception if exam does not belong to college' do
       exam = Exam.create!(college_id: College.create.id)
       post '/users/schedule_test', params: { **valid_attributes, exam_id: exam.id }, as: :json
       expect(response.status).to be(400)
-      expect(response.body).to be('This college does not have access to this exam')
+      expect(response.body).to eq('This college does not have access to this exam')
+    end
+
+    it 'Throws exception if college does not exist' do
+      post '/users/schedule_test', params: { **valid_attributes, college_id: '' }, as: :json
+      expect(response.status).to be(400)
+      expect(response.body).to include("Couldn't find College")
+    end
+
+    it 'Throws exception if user can not be created' do
+      post '/users/schedule_test', params: { **valid_attributes, phone_number: '' }, as: :json
+      expect(response.status).to be(400)
+      expect(response.body).to include('Phone number is too short')
     end
   end
 end

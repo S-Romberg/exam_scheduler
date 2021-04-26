@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   # main method - POST /users/schedule_test
   def schedule_test
     @user = grab_user
+    @user.save!
     @exam = valid_exam_schedule_request?
     create_exam_user_join
 
@@ -58,7 +59,7 @@ class UsersController < ApplicationController
   end
 
   def grab_user
-    User.find_or_create_by(phone_number: user_params[:phone_number], first_name: user_params[:first_name],
+    User.find_or_create_by!(phone_number: user_params[:phone_number], first_name: user_params[:first_name],
                            last_name: user_params[:last_name])
   end
 
@@ -72,8 +73,7 @@ class UsersController < ApplicationController
   end
 
   def exam_belongs_to_college?(college, exam)
-    binding.pry
-    raise StandardError, 'This college does not have access to this exam' unless college.exams.find(exam.id)
+    raise StandardError, 'This college does not have access to this exam' if college.exams.where(id: exam.id).blank?
   end
 
   def start_time_is_in_exam_windows?(exam)
