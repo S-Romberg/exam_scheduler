@@ -7,8 +7,7 @@ class UsersController < ApplicationController
     @exam = valid_exam_schedule_request?
     create_exam_user_join
 
-    render json: "Exam scheduled for #{user_params[:start_time].to_s}", status: :ok
-
+    render json: "Exam scheduled for #{user_params[:start_time]}", status: :ok
   rescue StandardError => e
     render json: e.message, status: 400
   end
@@ -72,17 +71,20 @@ class UsersController < ApplicationController
     exam
   end
 
+  def exam_belongs_to_college?(college, exam)
+    binding.pry
+    raise StandardError, 'This college does not have access to this exam' unless college.exams.find(exam.id)
+  end
+
   def start_time_is_in_exam_windows?(exam)
     matching_times = exam.exam_windows.select do |window|
       user_params[:start_time].between?(window.start_time, window.end_time)
     end
-    raise StandardError, 'Invalid start time' if matching_times.empty?
+    raise if matching_times.empty?
 
     matching_times
-  end
-
-  def exam_belongs_to_college?(college, exam)
-    raise StandardError, 'This college does not have access to this exam' unless college.exams.find(exam.id)
+  rescue StandardError
+    raise StandardError, 'Invalid start time'
   end
 
   def create_exam_user_join
