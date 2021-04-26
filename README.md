@@ -54,4 +54,9 @@ start_time: DateTime
 > Appropriate tests linked [here](spec/requests/users_spec.rb)
 > 
 
+
 Time to complete (not including breaks): ~3 hours
+
+#### Next steps:
+  - Allow for rescheduling and cancellation of exams
+  - Flesh out remaining CRUD functionality on all tables
