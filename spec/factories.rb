@@ -1,26 +1,26 @@
 FactoryBot.define do
+  factory :college do
+    name { 'WGU' }
+  end
+
   factory :user do
     first_name { 'Spencer' }
     last_name { 'Romberg' }
     phone_number { '7205551324' }
   end
 
-  factory :college do
-    name { 'WGU' }
-  end
-
   factory :exam do
-    college
+    association :college
   end
 
   factory :exam_window do
-    exam
+    association :exam
     start_time { DateTime.current.beginning_of_hour() }
     end_time { DateTime.current.end_of_hour() }
   end
 
   factory :api_request do
-    user
+    association :user
     action { 'error' }
     description { 'Exam window does not exist' }
   end
