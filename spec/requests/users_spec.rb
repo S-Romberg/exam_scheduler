@@ -61,6 +61,13 @@ RSpec.describe '/users/schedule_test', type: :request do
       expect(response.status).to be(400)
       expect(response.body).to include('Phone number is too short')
     end
+
+    it 'Create ApiRequest record for failed request' do
+      post '/users/schedule_test', params: { **valid_attributes, phone_number: '' }, as: :json
+      expect(ApiRequest.last.response_type).to eq('Error')
+      expect(ApiRequest.last.request_details).to include('Request POST')
+      expect(ApiRequest.last.request_details).to include('/users/schedule_test')
+    end
   end
 end
 
@@ -84,10 +91,10 @@ RSpec.describe '/users', type: :request do
       get users_url, as: :json
       expect(response).to be_successful
     end
-    it 'creates api_request loggin request' do
+    it 'creates api_request log - success' do
       get users_url, as: :json
       api_request_record = ApiRequest.last
-      expect(api_request_record.action_type).to eq('Request')
+      expect(api_request_record.response_type).to eq('Success')
     end
   end
 

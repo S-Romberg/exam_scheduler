@@ -25,8 +25,8 @@ FactoryBot.define do
   end
 
   factory :api_request do
-    action_type { 'error' }
-    description { 'Exam window does not exist' }
-    initialize_with { ApiRequest.find_or_create_by(action_type: action_type) }
+    response_type { 'Error' }
+    request_details { 'Exam window does not exist' }
+    initialize_with { ApiRequest.find_or_create_by(response_type: response_type) }
   end
 end
