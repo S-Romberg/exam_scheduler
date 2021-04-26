@@ -9,5 +9,6 @@ RSpec.describe ApiRequest, type: :model do
   it "exists with valid attributes" do
     api_request = ApiRequest.last
     expect(api_request.action_type).to eq('error')
+    expect(api_request.description).to eq('Exam window does not exist')
   end
 end
